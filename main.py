@@ -1,8 +1,3 @@
-# Wyrzuca blad przy wprowadzeniu move zlego
-# Przy wprowadzeniu drugiego konfliktu, akceptuje go
-
-
-
 # Config
 player1 = 'X'
 player2 = 'O'
