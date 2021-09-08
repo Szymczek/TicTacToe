@@ -1,20 +1,13 @@
 # Config
-player1 = 'X'
-player2 = 'O'
-turn = player1
+cross = 'X'
+circle = 'O'
+turn = cross
 end = False
 global move
 theBoard = {'TL': ' ', 'TM': ' ', 'TR': ' ',
             'ML': ' ', 'MM': ' ', 'MR': ' ',
             'LL': ' ', 'LM': ' ', 'LR': ' ', }
 moves = ["TL", "TM", "TR", "ML", "MM", "MR", "LL", "LM", "LR"]
-
-
-def player_name():
-    global player1
-    player1 = input("Player 1 name: ")
-    global player2
-    player2 = input("Player 1 name: ")
 
 
 def print_board(board):
@@ -41,17 +34,17 @@ def check_win(board, _turn):
             print(_turn + "wins")
             end = True
             break
-        if board[position] == player1:
+        if board[position] == cross:
             x_counter += 1
-        if board[position] == player2:
+        if board[position] == circle:
             zero_counter += 1
         if col_number == 3:
             col_number = 0
             if x_counter == 3:
-                print(player1 + " wins")
+                print(cross + " wins")
                 end = True
             elif zero_counter == 3:
-                print(player2 + " wins")
+                print(circle + " wins")
                 end = True
             else:
                 x_counter = 0
@@ -68,7 +61,7 @@ def input_move():
 
 
 def conflicts_check(moved):
-    if player1 in theBoard[moved] or player2 in theBoard[moved]:
+    if cross in theBoard[moved] or circle in theBoard[moved]:
         print("You cant do this.. ")
         global move
         move = input_move()
@@ -89,12 +82,14 @@ def start_game():
         conflicts_check(move)
         theBoard[move] = turn
         check_win(theBoard, turn)
+        if i == 8:
+            tie()
         if end:
             break
-        if turn == player1:
-            turn = player2
+        if turn == cross:
+            turn = circle
         else:
-            turn = player1
+            turn = cross
 
 
 # Start
