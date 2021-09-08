@@ -1,14 +1,14 @@
-# Nadzorcza kaczka: Tomasz Wilk
 # Wyrzuca blad przy wprowadzeniu move zlego
- # Przy wprowadzeniu drugiego konfliktu, akceptuje go
- 
+# Przy wprowadzeniu drugiego konfliktu, akceptuje go
+
 
 
 # Config
 player1 = 'X'
-player2 = 'W'
+player2 = 'O'
 turn = player1
 end = False
+global move
 theBoard = {'TL': ' ', 'TM': ' ', 'TR': ' ',
             'ML': ' ', 'MM': ' ', 'MR': ' ',
             'LL': ' ', 'LM': ' ', 'LR': ' ', }
@@ -64,18 +64,20 @@ def check_win(board, _turn):
 
 
 def input_move():
-    _move = input("TL, TM, TR..\n")
-    if _move not in moves:
+    global move
+    move = input("TL, TM, TR..\n")
+    if move not in moves:
         print("Something went wrong, try again")
         input_move()
-    return _move
+    return move
 
 
 def conflicts_check(moved):
     if player1 in theBoard[moved] or player2 in theBoard[moved]:
         print("You cant do this.. ")
+        global move
         move = input_move()
-        return move
+        conflicts_check(move)
 
 
 def tie():
@@ -85,6 +87,7 @@ def tie():
 def start_game():
     global turn
     global theBoard
+    global move
     for i in range(9):
         print_board(theBoard)
         move = input_move()
@@ -93,8 +96,6 @@ def start_game():
         check_win(theBoard, turn)
         if end:
             break
-        if i == 9:
-            tie()
         if turn == player1:
             turn = player2
         else:
