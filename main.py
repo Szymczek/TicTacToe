@@ -19,13 +19,47 @@ def print_board(board):
     print('Turn for ' + turn + '. Move on which space?')
 
 
+def small_brain_checks_win(board, _turn):
+    """ Checks possible wins, easy way"""
+    global end
+    # Diagonal
+    if board['TL'] == _turn and board['MM'] == _turn and board['LR'] == _turn:
+        print(_turn + "wins")
+        end = True
+    if board['TR'] == _turn and board['MM'] == _turn and board['LL'] == _turn:
+        print(_turn + "wins")
+        end = True
+    # Rows
+    if board['TL'] == _turn and board['TM'] == _turn and board['TR'] == _turn:
+        print(_turn + "wins")
+        end = True
+    if board['ML'] == _turn and board['MM'] == _turn and board['MR'] == _turn:
+        print(_turn + "wins")
+        end = True
+    if board['LL'] == _turn and board['LM'] == _turn and board['LR'] == _turn:
+        print(_turn + "wins")
+        end = True
+    # Columns
+    if board['TL'] == _turn and board['ML'] == _turn and board['LL'] == _turn:
+        print(_turn + "wins")
+        end = True
+    if board['TM'] == _turn and board['MM'] == _turn and board['LM'] == _turn:
+        print(_turn + "wins")
+        end = True
+    if board['TL'] == _turn and board['MR'] == _turn and board['LR'] == _turn:
+        print(_turn + "wins")
+        end = True
+
+
 def check_win(board, _turn):
+    # Doesnt check columns
     global end
     x_counter = 0
     zero_counter = 0
     col_number = 0
     for position in board:
         col_number += 1
+        # Diagonal
         if board['TL'] == _turn and board['MM'] == _turn and board['LR'] == _turn:
             print(_turn + "wins")
             end = True
@@ -69,19 +103,22 @@ def conflicts_check(moved):
 
 
 def tie():
+    global end
     print("No winners.")
+    end = True
 
 
 def start_game():
     global turn
     global theBoard
     global move
+    global end
     for i in range(9):
         print_board(theBoard)
         move = input_move()
         conflicts_check(move)
         theBoard[move] = turn
-        check_win(theBoard, turn)
+        small_brain_checks_win(theBoard, turn)
         if i == 8:
             tie()
         if end:
