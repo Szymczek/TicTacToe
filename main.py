@@ -110,8 +110,8 @@ def start_game(player1, player2):
         if end:
             print("Score for " + player1.name + ": " + str(player1.score) + ".")
             print("Score for " + player2.name + ": " + str(player2.score) + ".")
-            restart = input("Wanna play more? Y/N\n")
-            if restart == 'Y':
+            next_game = input("Wanna play more? Y/N\n")
+            if next_game == 'Y':
                 clear_board()
                 start_game(player1, player2)
             else:
@@ -131,8 +131,7 @@ def start_game(player1, player2):
             small_brain_checks_win(theBoard, player2)
 
 
-
 # Start
-p1 = Player("Szymi")
-p2 = Player("Random")
+p1 = Player(input("Player 1: Enter your name:\n"))
+p2 = Player(input("Player 2: Enter your name:\n"))
 start_game(p1, p2)
