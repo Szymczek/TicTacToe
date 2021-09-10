@@ -35,6 +35,13 @@ def print_board(board, player):
     print('Turn for ' + player + '. Move on which space?')
 
 
+def clear_board():
+    global theBoard
+    theBoard = {'TL': ' ', 'TM': ' ', 'TR': ' ',
+                'ML': ' ', 'MM': ' ', 'MR': ' ',
+                'LL': ' ', 'LM': ' ', 'LR': ' ', }
+
+
 def small_brain_checks_win(board, player):
     """ Checks possible wins, easy way"""
     global end
@@ -45,26 +52,33 @@ def small_brain_checks_win(board, player):
         end = True
     if board['TR'] == player.sign and board['MM'] == player.sign and board['LL'] == player.sign:
         print(player.name + " wins")
+        player.get_point()
         end = True
     # Rows
     if board['TL'] == player.sign and board['TM'] == player.sign and board['TR'] == player.sign:
         print(player.name + " wins")
+        player.get_point()
         end = True
     if board['ML'] == player.sign and board['MM'] == player.sign and board['MR'] == player.sign:
         print(player.name + " wins")
+        player.get_point()
         end = True
     if board['LL'] == player.sign and board['LM'] == player.sign and board['LR'] == player.sign:
         print(player.name + " wins")
+        player.get_point()
         end = True
     # Columns
     if board['TL'] == player.sign and board['ML'] == player.sign and board['LL'] == player.sign:
         print(player.name + " wins")
+        player.get_point()
         end = True
     if board['TM'] == player.sign and board['MM'] == player.sign and board['LM'] == player.sign:
         print(player.name + " wins")
+        player.get_point()
         end = True
     if board['TL'] == player.sign and board['MR'] == player.sign and board['LR'] == player.sign:
         print(player.name + " wins")
+        player.get_point()
         end = True
 
 
@@ -94,7 +108,15 @@ def start_game(player1, player2):
         if round == 8:
             tie()
         if end:
-            break
+            print("Score for " + player1.name + ": " + str(player1.score) + ".")
+            print("Score for " + player2.name + ": " + str(player2.score) + ".")
+            restart = input("Wanna play more? Y/N\n")
+            if restart == 'Y':
+                clear_board()
+                start_game(player1, player2)
+            else:
+                end = False
+                break
         if round % 2 == 0:
             print_board(theBoard, player1.name)
             player1.input_move()
