@@ -1,4 +1,6 @@
+# Todo: delete global var, make state class
 # Config
+next_game = ''
 end = False
 theBoard = {'TL': ' ', 'TM': ' ', 'TR': ' ',
             'ML': ' ', 'MM': ' ', 'MR': ' ',
@@ -101,6 +103,7 @@ def tie():
 
 def start_game(player1, player2):
     global theBoard
+    global next_game
     global end
     player1.set_sign('X')
     player2.set_sign('O')
@@ -108,9 +111,10 @@ def start_game(player1, player2):
         if round == 8:
             tie()
         if end:
+            end = False
             print("Score for " + player1.name + ": " + str(player1.score) + ".")
             print("Score for " + player2.name + ": " + str(player2.score) + ".")
-            next_game = input("Wanna play more? Y/N\n")
+            next_game = input("\nWanna play more? Y/N\n")
             if next_game == 'Y':
                 clear_board()
                 start_game(player1, player2)
